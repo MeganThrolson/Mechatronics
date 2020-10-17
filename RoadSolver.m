@@ -30,5 +30,9 @@ B = [0
      0
      (-k_1/mu)];
  eq = z == (A*X) + (B*R);
- Road = solve(eq);
+ Road_solve = solve(eq);
+ Road = [vpa(Road_solve.R)
+          vpa(Road_solve.z_s_prime)
+          vpa(Road_solve.z_s_dot_prime)
+          vpa(Road_solve.z_u_dot_prime)];
 end
