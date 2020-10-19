@@ -1,6 +1,6 @@
 classdef TankTread < matlab.System
     properties
-       
+       output 
         A_motor
         B_motor
        
@@ -23,7 +23,7 @@ classdef TankTread < matlab.System
                       0 0 0 -K_arm/R_arm 0 0;
                       0 (1/M_Rocker)/R_arm (1/(M_tank/6))/R_arm 0 0 1/(J_arm + (J_tank/6));
                       0 0 0 0 0 -1/(J_arm +(J_tank/6));
-                      0 0 0 0 K_arm -K_spring 0];
+                      0 0  0 K_arm -K_spring 0];
                   obj.B_tank = [1;K_tread;0;0;0;0];
         end
       
@@ -35,7 +35,7 @@ classdef TankTread < matlab.System
              else
                  x = obj.output(i-1);
              end
-             obj.output(i) = obj.A_tank*x + obj.B_tank*road.Input(i);
+             obj.output(i) = obj.A_tank*x + obj.B_tank*road.Input(i,1);
             end
         end
     end
