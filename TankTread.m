@@ -27,15 +27,15 @@ classdef TankTread < matlab.System
                   obj.B_tank = [1;K_tread;0;0;0;0];
         end
       
-        function  Driving(obj, road)
-            obj.output = zeros(road.numSteps,1);
-            for i = 1:road.numSteps
+        function  Driving(obj,z_values)
+            obj.output = zeros((47.2/.1),6);
+            for i = 1:47.2/.1
              if i == 1
                  x = [0;0;0;0;0;0];
              else
                  x = obj.output(i-1);
              end
-             obj.output(i) = obj.A_tank*x + obj.B_tank*road.Input(i,1);
+             obj.output(i,1:6) = obj.A_tank*x + obj.B_tank*z_values(i,1);
             end
         end
     end

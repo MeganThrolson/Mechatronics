@@ -16,5 +16,5 @@ elseif(X < 19.625)
 elseif(X<35.63)
     z = 3;
 else
-    z = 3 - (X*sind(17.5));
+    z = 3 - ((X-35.63)*sind(17.5));
 end
