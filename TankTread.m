@@ -20,7 +20,7 @@ classdef TankTread < matlab.System
         function TankBuilder(obj,M_Rocker,K_arm,R_arm,M_tank,J_arm,J_tank,K_spring, K_tread)
             obj.A_tank = [0 1/M_Rocker 0 0 0 0;
                       0 0 0 K_arm/R_arm 0 0;
-                      0 0 0 -K_arm/R_arm 0 0;
+                      K_tread 0 0 -K_arm/R_arm 0 0;
                       0 (1/M_Rocker)/R_arm (1/(M_tank/6))/R_arm 0 0 1/(J_arm + (J_tank/6));
                       0 0 0 0 0 -1/(J_arm +(J_tank/6));
                       0 0  0 K_arm -K_spring 0];
@@ -28,12 +28,12 @@ classdef TankTread < matlab.System
         end
       
         function  Driving(obj,z_values)
-            obj.output = zeros((47.2/.1),6);
-            for i = 1:47.2/.1
+            obj.output = zeros((47/.1),6);
+            for i = 1:47.0/.1
              if i == 1
                  x = [0;0;0;0;0;0];
              else
-                 x = obj.output(i-1);
+                 x = obj.output(i-1,1:6)';
              end
              obj.output(i,1:6) = obj.A_tank*x + obj.B_tank*z_values(i,1);
             end
