@@ -19,11 +19,11 @@ classdef TankTread < matlab.System
         end
         function TankBuilder(obj,M_Rocker,K_arm,R_arm,M_tank,J_arm,J_tank,K_spring, K_tread)
             obj.A_tank = [0 1/M_Rocker 0 0 0 0;
-                      0 0 0 K_arm/R_arm 0 0;
-                      K_tread 0 0 -K_arm/R_arm 0 0;
-                      0 (1/M_Rocker)/R_arm (1/(M_tank/6))/R_arm 0 0 1/(J_arm + (J_tank/6));
-                      0 0 0 0 0 -1/(J_arm +(J_tank/6));
-                      0 0  0 K_arm -K_spring 0];
+                      K_tread 0 0 K_arm/R_arm 0 0;
+                     0 0 0 K_arm/R_arm 0 0;
+                    0 0 0 K_arm/R_arm 0 0;
+                      0 0 0 0 0 ((J_arm +J_tank)/6);
+                      0 0 0 K_arm -K_spring 0];
                   obj.B_tank = [1;K_tread;0;0;0;0];
         end
       
